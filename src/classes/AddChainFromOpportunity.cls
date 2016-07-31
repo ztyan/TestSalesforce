@@ -48,7 +48,7 @@ public class AddChainFromOpportunity {
     
     /* Paginating */
     /* the chain list after pagination which would be passed to UI */
-    public void paginateList(){
+    public void paginateList(){    	
         paginatedChainList = new List<ChainWrapper>();
         firstIndex = ROWS_PER_PAGE * pageNum - ROWS_PER_PAGE ;
         for(Integer i=firstIndex; i<firstIndex+ROWS_PER_PAGE && chainList !=null && chainList.size() > i; i++){

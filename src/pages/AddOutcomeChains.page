@@ -14,7 +14,7 @@ function checkAll(cb)
 <apex:form >
     <apex:sectionHeader title="Choose Outcome Chains" subtitle=""/>
     <apex:pageblock >
-        <apex:pageBlockSection title="Search Chain" columns="1">
+        <apex:pageBlockSection title="Search Chains" columns="1">
             <!-- Panel grid to display boxes o accept user input values -->
             <apex:panelGrid columns="2">
                 <apex:outputLabel style="font-weight:bold;" value="Chain Name(optional)" ></apex:outputLabel>
