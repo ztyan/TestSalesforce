@@ -1,0 +1,66 @@
+<apex:page standardcontroller="Opportunity" extensions="AddChainFromOpportunity" >
+<!-- Javascript function to check all rows in the table -->
+<script type="text/javascript">
+function checkAll(cb)
+{
+   var inputElem = document.getElementsByTagName("input");
+   for(var i=0;i<inputElem.length;i++)
+     {
+             if(inputElem[i].id.indexOf("selectLine")!=-1)
+                   inputElem[i].checked = cb.checked;
+      }
+}
+</script>
+<apex:form >
+    <apex:sectionHeader title="Choose Outcome Chains" subtitle=""/>
+    <apex:pageblock >
+        <apex:pageBlockSection title="Search Chain" columns="1">
+            <!-- Panel grid to display boxes o accept user input values -->
+            <apex:panelGrid columns="2">
+                <apex:outputLabel style="font-weight:bold;" value="Chain Name(optional)" ></apex:outputLabel>
+                <apex:inputText value="{!chainName}"/>
+            </apex:panelGrid>
+            <!-- End of panelgrid -->
+            <apex:commandButton style="width:50px;" value="Search" action="{!chainSearch}" />
+        </apex:pageBlockSection>
+        <!-- Display error message -->
+        <apex:pagemessage strength="2" title="Error!!!" severity="error" detail="Please select a chain to proceed" rendered="{!errorMsg}"/>
+        <!-- End of error message -->
+        
+        <!-- Display search results -->
+        <apex:pageblocksection columns="1" title="Search Results" rendered="{!NOT(ISNULL(paginatedChainList))}" >
+          <apex:outputpanel id="Chainlist">
+        
+                <apex:pageBlockTable value="{!paginatedChainList}" var="chains">
+                     <apex:column >
+                        <apex:facet name="header">
+                            <apex:inputCheckbox onclick="checkAll(this)"/>
+                        </apex:facet>
+                            <apex:inputCheckbox value="{!chains.selected}" id="selectLine"/>
+                    </apex:column>
+                    <apex:column headervalue="Chain Name">
+                        <apex:outputtext value="{!chains.chain.Name}"/>
+                    </apex:column>
+                    <apex:column headervalue="Is Template">
+                        <apex:inputCheckbox selected="{!chains.chain.isTemplate__c}"/>
+                    </apex:column>
+                    <apex:column headervalue="Chain ID">
+                        <apex:outputtext value="{!chains.chain.oci_chain_id__c}"/>
+                    </apex:column>                        
+                </apex:pageBlockTable><br/>  
+              <apex:commandLink title="First Page" value="First Page  " action="{!firstPage}" rendered="{!hasFirstPage}"/>&nbsp;&nbsp;&nbsp;          
+              <apex:commandLink title="Previous Page" value="Previous Page  " action="{!previousPage}" rendered="{!hasPreviousPage}"/>&nbsp;&nbsp;&nbsp;      
+              <apex:commandLink title="Next Page" value="Next Page"  action="{!nextPage}" rendered="{!hasNextPage}"/>&nbsp;&nbsp;&nbsp;
+              <apex:commandLink title="Last Page" value="Last Page" action="{!lastPage}" rendered="{!hasLastPage}"/>&nbsp;&nbsp;&nbsp;
+              <apex:outputText value="total {!totalPageNum} pages,current {!pageNum} page"></apex:outputText>
+              <br/><br/> 
+              <apex:commandButton style="width:50px;" value="OK" action="{!processSelected}"/>
+              <apex:commandbutton style="margin-left:10px; width:50px;" value="Cancel" action="{!Cancel}"/>          
+            </apex:outputpanel>
+        <!-- End of Commandbutton -->    
+        </apex:pageblocksection>
+        <!-- End of search results -->
+    
+    </apex:pageblock>
+</apex:form>
+</apex:page>

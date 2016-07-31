@@ -1,0 +1,69 @@
+<apex:page controller="chainList" extensions="scheduleChainList">   
+    <apex:includeScript value="/soap/ajax/26.0/connection.js"/> 
+    <apex:includeScript value="/soap/ajax/37.0/apex.js"/>
+    <script type="text/javascript">
+        sforce.connection.sessionId = "{!$Api.Session_ID}";
+        window.onload=function(){
+            init();
+        };
+        
+        function scheduleChainSync(){
+            try{
+                sforce.apex.execute("outcome1.scheduleChainList","scheduleChainSync",{}); 
+                document.getElementById("scheduleBtn").style.display="none";
+                document.getElementById("scheduleBtn").disabled="disabled";
+                document.getElementById("abortBtn").style.display="block"; 
+                document.getElementById("abortBtn").disabled="";                
+            }
+            catch(err){
+                alert(err);
+            }          
+            return true;
+        }
+        
+        function abortChainSync(){
+            try{
+                sforce.apex.execute("outcome1.scheduleChainList","abortChainSync",{}); 
+                document.getElementById("scheduleBtn").style.display="block";
+                document.getElementById("scheduleBtn").disabled="";                
+                document.getElementById("abortBtn").style.display="none"; 
+                document.getElementById("abortBtn").disabled="disabled";                   
+            }
+            catch(err){
+                alert(err);
+            }         
+            return true;
+        } 
+        
+        function init(){
+            var existChainSync = sforce.apex.execute("outcome1.scheduleChainList","existChainSync",{});
+            if(existChainSync==1){
+                document.getElementById("scheduleBtn").style.display="none";
+                document.getElementById("scheduleBtn").disabled="disabled";
+                document.getElementById("abortBtn").style.display="block"; 
+                document.getElementById("abortBtn").disabled="";
+            }
+            else{            
+                document.getElementById("scheduleBtn").style.display="block";
+                document.getElementById("scheduleBtn").disabled="";                
+                document.getElementById("abortBtn").style.display="none"; 
+                document.getElementById("abortBtn").disabled="disabled";                
+            }
+        } 
+        
+        function removeAllChains(){
+            return confirm("Are you sure you want to remove all chains? This function is only intended to be used in a testing environment. The following actions will be performed:\n1. Delete chain records in Salesforce.\n2. Delete opportunity-chain records in Salesforce. As a result, chains added to opportunity records will be deleted.\n\nNote: Chains in the Outcome Chains app is not affected.");
+        
+        }      
+    </script>
+      <apex:form id="ChainAdmin"> 
+          <apex:pageBlock title="Schedule">
+                <input id="scheduleBtn" type="button" value="Schedule Sync Chains" disabled="disabled" class="btn" style="display:none;" onclick="return scheduleChainSync();"/>
+                <input id="abortBtn" type="button" value="Abort Schedule" disabled="disabled" class="btn" style="display:none;" onclick="return abortChainSync();"/>       
+           </apex:pageBlock>
+          <apex:pageBlock title="For Testing">
+                <apex:commandButton value="For Testing: Manually Sync Chains" action="{!getAllChains}"/><br/><br/>
+                <apex:commandButton value="For Testing: Manually Remove Chains" action="{!removeAllChains}" onclick=" return removeAllChains();"/>
+           </apex:pageBlock>           
+    </apex:form>
+</apex:page>

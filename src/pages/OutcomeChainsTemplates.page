@@ -1,0 +1,21 @@
+<apex:page title="Outcome Chains Templates" controller="outcomeChainsTemplates">
+<style>
+.fewerMore { display: none;}
+</style>
+<apex:form >
+ <apex:pageMessages />
+<apex:pageblock id="templateList" title="Templates">
+   <apex:pageBlockTable value="{!Templates}" var="o" rendered="{!NOT(ISNULL(Templates))}">
+        <apex:column headerValue="ID" value="{!o.oci_chain_id__c}"/>
+        <apex:column headerValue="Chain Name">
+            <apex:outputLink value="/{!o.Id}">{!o.Name}</apex:outputLink>     
+        </apex:column>   
+        <apex:column headerValue="Chain URL" value="{!o.ChainURL__c}"/>
+        <apex:column headerValue="Description" value="{!o.Description__c}"/>
+        <apex:column headerValue="isTemplate" value="{!o.isTemplate__c}"/>        
+        <apex:column headerValue="Chain Owner" value="{!o.Chain_Owner__c}"/>
+   </apex:pageBlockTable>
+   <apex:outputLabel value="No records to display" rendered="{!(ISNULL(Templates))}" styleClass="noRowsHeader"></apex:outputLabel>
+ </apex:pageblock>
+</apex:form>
+</apex:page>
