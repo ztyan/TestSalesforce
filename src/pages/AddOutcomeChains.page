@@ -17,14 +17,14 @@ function checkAll(cb)
         <apex:pageBlockSection title="Search Chains" columns="1">
             <!-- Panel grid to display boxes o accept user input values -->
             <apex:panelGrid columns="2">
-                <apex:outputLabel style="font-weight:bold;" value="Chain Name(optional) " ></apex:outputLabel>
+                <apex:outputLabel style="font-weight:bold;" value="Chain Name(optional)" ></apex:outputLabel>
                 <apex:inputText value="{!chainName}"/>
             </apex:panelGrid>
             <!-- End of panelgrid -->
             <apex:commandButton style="width:50px;" value="Search" action="{!chainSearch}" />
         </apex:pageBlockSection>
         <!-- Display error message -->
-        <apex:pagemessage strength="2" title="Error!!!" severity="error" detail="Please select a chain to proceed" rendered="{!errorMsg}"/>
+        <apex:pagemessage strength="2" title="Error!!!" severity="error" detail="Please select at least one chain to proceed" rendered="{!errorMsg}"/>
         <!-- End of error message -->
         
         <!-- Display search results -->
