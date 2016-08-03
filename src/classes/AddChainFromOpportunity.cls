@@ -35,7 +35,7 @@ public class AddChainFromOpportunity {
          chainList = new List<ChainWrapper>();
          for(Chain__c c : [SELECT oci_chain_id__c,Name,isTemplate__c 
                            FROM Chain__c 
-                           WHERE Id not in (select outcome1__ChainId__c from outcome1__OpportunityChain__c) 
+                           WHERE Id not in (select ChainId__c from OpportunityChain__c) 
                            and Name like :chainName+'%' 
                            and Chain_External_User__c = :currentUser])
          {
@@ -48,7 +48,7 @@ public class AddChainFromOpportunity {
     
     /* Paginating */
     /* the chain list after pagination which would be passed to UI */
-    public void paginateList(){    	
+    public void paginateList(){     
         paginatedChainList = new List<ChainWrapper>();
         firstIndex = ROWS_PER_PAGE * pageNum - ROWS_PER_PAGE ;
         for(Integer i=firstIndex; i<firstIndex+ROWS_PER_PAGE && chainList !=null && chainList.size() > i; i++){
