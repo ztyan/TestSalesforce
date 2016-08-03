@@ -17,7 +17,7 @@ function checkAll(cb)
         <apex:pageBlockSection title="Search Chains" columns="1">
             <!-- Panel grid to display boxes o accept user input values -->
             <apex:panelGrid columns="2">
-                <apex:outputLabel style="font-weight:bold;" value="Chain Name(optional)" ></apex:outputLabel>
+                <apex:outputLabel style="font-weight:bold;" value="Chain Name(optional) " ></apex:outputLabel>
                 <apex:inputText value="{!chainName}"/>
             </apex:panelGrid>
             <!-- End of panelgrid -->
