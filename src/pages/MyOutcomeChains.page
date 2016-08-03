@@ -15,7 +15,7 @@
         <apex:column headerValue="isTemplate" value="{!o.isTemplate__c}"/>        
         <apex:column headerValue="Chain Owner" value="{!o.Chain_Owner__c}"/>
    </apex:pageBlockTable>
-   <apex:outputLabel value="No records to display" rendered="{!(ISNULL(Chains))}" styleClass="noRowsHeader"></apex:outputLabel>
+   <apex:outputLabel value="No chains to display" rendered="{!(ISNULL(Chains))}" styleClass="noRowsHeader"></apex:outputLabel>
  </apex:pageblock>
 </apex:form>
 </apex:page>
